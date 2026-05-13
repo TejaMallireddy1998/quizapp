@@ -130,6 +130,23 @@ docker exec -i quizapp-postgres psql -U postgres -d authdb -c "INSERT INTO user_
 
 Logout and log back in. The Admin panel will appear in the header.
 
+### Step 6: Seed Sample Questions
+
+After services are running, seed a few sample questions so you can create quizzes:
+
+```bash
+docker exec -i quizapp-postgres psql -U postgres -d questiondb << 'EOF'
+INSERT INTO question (question_title, option1, option2, option3, option4, right_answer, difficultylevel, category) VALUES
+('Which keyword is used to create a subclass in Java?', 'class', 'implements', 'extends', 'new', 'extends', 'Easy', 'Java'),
+('Which symbol is used for comments in Python?', '//', '/*', '#', '--', '#', 'Easy', 'Python'),
+('Which join returns only matching rows from both tables?', 'LEFT JOIN', 'RIGHT JOIN', 'INNER JOIN', 'FULL JOIN', 'INNER JOIN', 'Easy', 'SQL');
+EOF
+```
+
+This adds 3 sample questions (Java, Python, SQL). Add more using the same pattern.
+
+Then go to the **Admin panel** in the app, pick a category, and create a quiz.
+
 
 ## 📡 API Endpoints
 
